@@ -3,37 +3,43 @@ document.addEventListener("DOMContentLoaded", function () {
     function validateForm(event) {
         event.preventDefault(); // Prevent form from submitting
 
-        // Get form values
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
-
         const feedback = document.getElementById("form-feedback");
 
-        // Basic validation
+        // Track validation messages
+        const messages = [];
+        let isValid = true;
+
+        // Username validation
         if (username.length < 3) {
-            feedback.textContent = "Username must be at least 3 characters long.";
-            feedback.style.color = "red";
-            return;
+            messages.push("Username must be at least 3 characters long.");
+            isValid = false;
         }
 
+        // Email validation
         if (!email.includes("@") || !email.includes(".")) {
-            feedback.textContent = "Please enter a valid email address.";
-            feedback.style.color = "red";
-            return;
+            messages.push("Please enter a valid email address.");
+            isValid = false;
         }
 
+        // Password validation
         if (password.length < 6) {
-            feedback.textContent = "Password must be at least 6 characters long.";
-            feedback.style.color = "red";
-            return;
+            messages.push("Password must be at least 6 characters long.");
+            isValid = false;
         }
 
-        // If all is valid
-        feedback.textContent = "Registration successful!";
-        feedback.style.color = "green";
+        // Display results
+        if (!isValid) {
+            feedback.textContent = messages.join(" ");
+            feedback.style.color = "red";
+        } else {
+            feedback.textContent = "Registration successful!";
+            feedback.style.color = "green";
+        }
     }
 
-    // Attach event listener to form submit
+    // Attach event listener
     document.getElementById("registration-form").addEventListener("submit", validateForm);
 });
