@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         }
 
-        if (password.length < 6) {
-            messages.push("Password must be at least 6 characters long.");
+        if (password.length < 8) {
+            messages.push("Password must be at least 8 characters long.");
             isValid = false;
         }
 
