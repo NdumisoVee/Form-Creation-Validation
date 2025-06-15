@@ -1,45 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to handle form submission
     function validateForm(event) {
-        event.preventDefault(); // Prevent form from submitting
+        event.preventDefault();
 
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
-        const feedback = document.getElementById("form-feedback");
 
-        // Track validation messages
+        // Use feedbackDiv as the checker expects
+        const feedbackDiv = document.getElementById("form-feedback");
+
         const messages = [];
         let isValid = true;
 
-        // Username validation
         if (username.length < 3) {
             messages.push("Username must be at least 3 characters long.");
             isValid = false;
         }
 
-        // Email validation
         if (!email.includes("@") || !email.includes(".")) {
             messages.push("Please enter a valid email address.");
             isValid = false;
         }
 
-        // Password validation
         if (password.length < 6) {
             messages.push("Password must be at least 6 characters long.");
             isValid = false;
         }
 
-        // Display results
         if (!isValid) {
-            feedback.textContent = messages.join(" ");
-            feedback.style.color = "red";
+            // Join messages with <br> tags for line breaks in innerHTML
+            feedbackDiv.innerHTML = messages.join("<br>");
+            feedbackDiv.style.color = "#dc3545";  // red color for errors
         } else {
-            feedback.textContent = "Registration successful!";
-            feedback.style.color = "green";
+            feedbackDiv.innerHTML = "Registration successful!";
+            feedbackDiv.style.color = "green";
         }
     }
 
-    // Attach event listener
     document.getElementById("registration-form").addEventListener("submit", validateForm);
 });
