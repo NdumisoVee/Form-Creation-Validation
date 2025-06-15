@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
+    function display(message, isError = true) {
+        const feedbackDiv = document.getElementById("form-feedback");
+        feedbackDiv.innerHTML = message;
+        feedbackDiv.style.color = isError ? "#dc3545" : "green";
+    }
+
     function validateForm(event) {
         event.preventDefault();
 
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
-
-        // Use feedbackDiv as the checker expects
-        const feedbackDiv = document.getElementById("form-feedback");
 
         const messages = [];
         let isValid = true;
@@ -28,12 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (!isValid) {
-            // Join messages with <br> tags for line breaks in innerHTML
-            feedbackDiv.innerHTML = messages.join("<br>");
-            feedbackDiv.style.color = "#dc3545";  // red color for errors
+            display(messages.join("<br>"), true);
         } else {
-            feedbackDiv.innerHTML = "Registration successful!";
-            feedbackDiv.style.color = "green";
+            display("Registration successful!", false);
         }
     }
 
